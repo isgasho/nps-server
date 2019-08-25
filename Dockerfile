@@ -12,7 +12,7 @@ WORKDIR /app
 RUN git clone https://github.com/cnlh/nps.git
 
 # build binary
-RUN go build cmd/nps
+RUN go build ./cmd/nps
 
 # distribution image
 FROM alpine:3.9
