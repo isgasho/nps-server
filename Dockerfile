@@ -11,8 +11,8 @@ WORKDIR /app
 # clone sources
 RUN git clone https://github.com/cnlh/nps.git
 
-# vendor build only can be executed outside the GOPATH
-RUN go build .
+# build binary
+RUN go build cmd/nps
 
 # distribution image
 FROM alpine:3.9
