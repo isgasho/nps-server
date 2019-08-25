@@ -11,19 +11,22 @@ WORKDIR /app
 # clone sources
 RUN git clone https://github.com/cnlh/nps.git
 
-# install deps
-RUN go get ./...
-
 # vendor build only can be executed outside the GOPATH
-RUN go build -mod=vendor .
+RUN go build .
 
 # distribution image
 FROM alpine:3.9
+
+EXPOSE 30080
+EXPOSE 30024
+EXPOSE 30100-30900
 
 # add CAs
 RUN apk --no-cache add ca-certificates
 
 COPY --from=build-env /app/cmd/nps/nps .
+
+COPY default_server_conf.ini conf/nps.conf
 
 # start
 CMD ["./nps", "start"]
